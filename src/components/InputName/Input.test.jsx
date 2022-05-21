@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { Input } from '.';
+import { InputName } from '.';
 
 describe('<Input/>', () => {
   it('should render with default values', () => {
-    render(<Input>Texto</Input>);
+    render(<InputName>Texto</InputName>);
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 });

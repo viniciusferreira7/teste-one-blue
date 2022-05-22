@@ -6,8 +6,7 @@ export const InputPassword = ({ text, inputPassword }) => {
   return (
     <Styled.Container
       type="password"
-      placeholder="Digite sua senha"
-      value={text}
+      placeholder={text}
       required
       ref={inputPassword}
     />
@@ -16,5 +15,5 @@ export const InputPassword = ({ text, inputPassword }) => {
 
 InputPassword.propTypes = {
   text: P.string,
-  inputPassword: P.object.isRequired,
+  inputPassword: P.object,
 };

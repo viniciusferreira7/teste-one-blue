@@ -7,11 +7,15 @@ import { InputPassword } from '../InputPassword';
 import { Button } from '../Button';
 import { useFetch } from './useFetch';
 
-export const Form = ({ url, buttonText }) => {
+export const Form = ({ url, buttonText, input }) => {
   const [user, setUser] = useState({
     name: null,
     password: null,
   });
+  const [confirmPass, setConfirmPass] = useState(false);
+  const inputName = useRef();
+  const inputPassword = useRef();
+  const inputPasswordTwo = useRef();
 
   const [result, exists] = useFetch(
     url,
@@ -21,20 +25,30 @@ export const Form = ({ url, buttonText }) => {
 
   console.log(result);
 
-  const inputName = useRef();
-  const inputPassword = useRef();
-
   const handleRegister = () => {
-    setUser({
-      name: inputName.current.value,
-      password: inputPassword.current.value,
-    });
+    if (inputPassword.current.value === inputPasswordTwo.current.value) {
+      setUser({
+        name: inputName.current.value,
+        password: inputPassword.current.value,
+      });
+      setConfirmPass(true);
+    }
   };
+
+  console.log(confirmPass);
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
-      <InputName inputName={inputName} />
-      <InputPassword inputPassword={inputPassword} />
+      {input && <InputName text="Nome completo" />}
+      <InputName inputName={inputName} text="Digite seu usuário" />
+      <InputPassword inputPassword={inputPassword} text="Digite sua senha" />
+      {input && (
+        <InputPassword
+          inputPassword={inputPasswordTwo}
+          text="Confirme sua senha"
+        />
+      )}
+      {!confirmPass ? <p>As senhas estão diferentes</p> : ''}
       <Button handleRegister={() => handleRegister()}>{buttonText}</Button>
       {exists && <p>Já está em uso</p>}
     </Styled.Container>
@@ -44,4 +58,5 @@ export const Form = ({ url, buttonText }) => {
 Form.propTypes = {
   url: P.string.isRequired,
   buttonText: P.string.isRequired,
+  input: P.bool,
 };

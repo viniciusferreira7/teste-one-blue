@@ -2,41 +2,32 @@ import { useEffect, useState } from 'react';
 
 export const useFetch = (url, userName, userPassword) => {
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [exists, setExists] = useState(false);
 
   useEffect(() => {
-    let wait = false;
-
     const options = {
       method: 'POST',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
       body: JSON.stringify({ name: userName, password: userPassword }),
     };
 
-    setLoading(true);
-
     const fetchData = async () => {
       try {
         const response = await fetch(url, options);
         const jsonResult = await response.json();
 
-        if (!wait) {
-          setResult(jsonResult);
-          setLoading(false);
+        setResult(jsonResult);
+        if (jsonResult.why == 'User already exists') {
+          setExists(true);
         }
       } catch (e) {
-        if (!wait) {
-          setLoading(false);
-        }
-        throw e;
+        throw Error('Erro');
       }
     };
-    if (userName !== '' && userPassword !== '') fetchData();
+    if (!!userName && !!userPassword) fetchData();
 
-    return () => {
-      wait = true;
-    };
+    return () => setExists(false);
   }, [url, userName, userPassword]);
 
-  return [result, loading];
+  return [result, exists];
 };

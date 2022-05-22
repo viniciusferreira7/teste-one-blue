@@ -2,13 +2,13 @@ import P from 'prop-types';
 import React from 'react';
 import * as Styled from './styles';
 
-export const ButtonRegister = ({ children, handleRegister }) => {
+export const Button = ({ children, handleRegister }) => {
   return (
     <Styled.Container onClick={handleRegister}>{children}</Styled.Container>
   );
 };
 
-ButtonRegister.propTypes = {
+Button.propTypes = {
   children: P.string.isRequired,
   handleRegister: P.func,
 };

@@ -1,23 +1,25 @@
-// import P from 'prop-types';
+import P from 'prop-types';
 import React, { useRef, useState } from 'react';
-import * as Styled from './styles';
 
+import * as Styled from './styles';
 import { InputName } from '../InputName';
 import { InputPassword } from '../InputPassword';
-import { ButtonRegister } from '../ButtonRegister';
+import { Button } from '../Button';
 import { useFetch } from './useFetch';
 
-export const Form = () => {
+export const Form = ({ url, buttonText }) => {
   const [user, setUser] = useState({
-    name: '',
-    password: '',
+    name: null,
+    password: null,
   });
 
-  const [result] = useFetch(
-    'http://localhost:4000/user/cadaster',
-    user.name,
-    user.password,
+  const [result, exists] = useFetch(
+    url,
+    !!user.name && user.name,
+    !!user.password && user.password,
   );
+
+  console.log(result);
 
   const inputName = useRef();
   const inputPassword = useRef();
@@ -27,20 +29,19 @@ export const Form = () => {
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
-    console.log(result);
   };
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
       <InputName inputName={inputName} />
       <InputPassword inputPassword={inputPassword} />
-      <ButtonRegister handleRegister={() => handleRegister()}>
-        Cadastrar
-      </ButtonRegister>
+      <Button handleRegister={() => handleRegister()}>{buttonText}</Button>
+      {exists && <p>Já está em uso</p>}
     </Styled.Container>
   );
 };
 
-// Form.propTypes = {
-//   children: P.node.isRequired,
-// };
+Form.propTypes = {
+  url: P.string.isRequired,
+  buttonText: P.string.isRequired,
+};

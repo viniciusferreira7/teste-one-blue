@@ -7,5 +7,5 @@ export const ButtonRegister = ({ children }) => {
 };
 
 ButtonRegister.propTypes = {
-  children: P.node.isRequired,
+  children: P.string.isRequired,
 };

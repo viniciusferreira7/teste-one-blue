@@ -22,6 +22,7 @@ export const Form = ({ url, buttonText, input = false, title }) => {
     message: null,
   });
 
+  const inputNameComplete = useRef();
   const inputName = useRef();
   const inputPassword = useRef();
 
@@ -31,21 +32,43 @@ export const Form = ({ url, buttonText, input = false, title }) => {
     !!user.password && user.password,
   );
 
+  const handleRegister = async () => {
+    if (!(await validate())) return;
+
+    const saveDataForm = true;
+
+    if (saveDataForm) {
+      setStatus({
+        type: 'success',
+        message: 'Usuário cadastrado com sucesso!',
+      });
+      setUser({
+        userName: inputName.current.value,
+        password: inputPassword.current.value,
+      });
+    } else {
+      setStatus({
+        type: 'error',
+        message: 'Erro: Usuário não cadastrado com sucesso!',
+      });
+    }
+  };
+
   const validate = async () => {
     let schema = yup.object().shape({
       name: yup
-        .string('Necessário preencher o campo nome')
-        .required('Necessário preencher o campo nome'),
+        .string('Necessário preencher o campo Nome')
+        .required('Necessário preencher o campo Nome'),
       userName: yup
         .string('Necessário preencher o campo de Usuário')
         .required('Necessário preencher o campo de Usuário'),
       password: yup
-        .string('Necessário preencher o campo de senha')
-        .required('Necessário preencher o campo de senha'),
+        .string('Necessário preencher o campo de Senha')
+        .required('Necessário preencher o campo de Senha'),
     });
 
     try {
-      schema.validate(user);
+      await schema.validate(user);
       return true;
     } catch (err) {
       setStatus({
@@ -57,29 +80,27 @@ export const Form = ({ url, buttonText, input = false, title }) => {
   };
 
   console.log(result);
-
-  validate();
-
-  const handleRegister = () => {
-    setUser({
-      name: inputName.current.value,
-      password: inputPassword.current.value,
-    });
-  };
+  console.log(status);
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
       <h2>{title}</h2>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}
-      {input && <InputName name={'name'} text="Digite seu nome completo" />}
+      {input && (
+        <InputName
+          inputName={inputNameComplete}
+          name="name"
+          text="Digite seu nome completo"
+        />
+      )}
       <InputName
-        name={'userName'}
+        name="userName"
         inputName={inputName}
         text="Digite seu nome de usuário"
       />
       <InputPassword
-        name={'password'}
+        name="password"
         inputPassword={inputPassword}
         text="Digite sua senha"
       />

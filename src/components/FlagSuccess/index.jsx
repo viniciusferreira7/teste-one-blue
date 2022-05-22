@@ -7,5 +7,5 @@ export const FlagSuccess = ({ children }) => {
 };
 
 FlagSuccess.propTypes = {
-  children: P.node.isRequired,
+  children: P.string,
 };

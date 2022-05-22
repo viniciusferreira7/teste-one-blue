@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { FlagSucess } from '.';
+import { FlagSuccess } from '.';
 
 describe('<FlagSucess/>', () => {
   it('should render with default values', () => {
-    render(<FlagSucess>Texto</FlagSucess>);
+    render(<FlagSuccess>Texto</FlagSuccess>);
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 });

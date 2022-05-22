@@ -2,10 +2,10 @@ import P from 'prop-types';
 import React from 'react';
 import * as Styled from './styles';
 
-export const FlagSucess = ({ children }) => {
+export const FlagSuccess = ({ children }) => {
   return <Styled.Container>{children}</Styled.Container>;
 };
 
-FlagSucess.propTypes = {
+FlagSuccess.propTypes = {
   children: P.node.isRequired,
 };

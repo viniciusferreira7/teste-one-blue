@@ -22,7 +22,17 @@ export const Form = () => {
   };
 
   useEffect(() => {
-    console.log(user);
+    if (user.name != '' && user.password != '') {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({ name: user.name, password: user.password }),
+      };
+
+      fetch('http://localhost:4000/user/cadaster', options)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
   }, [user]);
 
   return (

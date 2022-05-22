@@ -11,7 +11,8 @@
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,7 +42,6 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
-    "prettier": "^2.6.2",
     "jest-styled-components": "^7.0.8",
     "prettier": "^2.5.1",
     "webpack": "^5.72.0"

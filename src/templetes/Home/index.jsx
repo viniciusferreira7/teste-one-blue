@@ -10,7 +10,7 @@ export const Home = () => {
         buttonText={'Cadastrar'}
         input={true}
       />
-      <Form url={'http://localhost:4000/login'} buttonText={'Logar'} />
+      <Form url={'http://localhost:4000/login'} buttonText={'Entrar'} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 // import P from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as Styled from './styles';
 
 import { InputName } from '../InputName';
@@ -14,21 +14,22 @@ export const Form = () => {
   const inputName = useRef();
   const inputPassword = useRef();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = () => {
     setUser({
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
   };
 
-  console.log(user);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
-    <Styled.Container>
+    <Styled.Container onClick={(e) => e.preventDefault()}>
       <InputName inputName={inputName} />
       <InputPassword inputPassword={inputPassword} />
-      <ButtonRegister onClick={() => handleRegister()}>
+      <ButtonRegister handleRegister={() => handleRegister()}>
         Cadastrar
       </ButtonRegister>
       <p>{user.name}</p>

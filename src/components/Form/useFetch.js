@@ -26,12 +26,12 @@ export const useFetch = (url, userName, userPassword) => {
         }
       } catch (e) {
         if (!wait) {
-          console.log(e);
           setLoading(false);
         }
+        throw e;
       }
     };
-    if (userName != '' && userPassword != '') fetchData();
+    if (userName !== '' && userPassword !== '') fetchData();
 
     return () => {
       wait = true;

@@ -19,8 +19,6 @@ export const Form = () => {
     user.password,
   );
 
-  console.log(result);
-
   const inputName = useRef();
   const inputPassword = useRef();
 
@@ -29,6 +27,7 @@ export const Form = () => {
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
+    console.log(result);
   };
 
   return (

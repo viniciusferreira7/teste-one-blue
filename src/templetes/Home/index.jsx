@@ -8,7 +8,6 @@ export const Home = () => {
       <Form
         url={'http://localhost:4000/user/cadaster'}
         buttonText={'Cadastrar'}
-        input={true}
         title={'Cadastrar Usuário'}
       />
       <Form url={'http://localhost:4000/login'} buttonText={'Entrar'} />

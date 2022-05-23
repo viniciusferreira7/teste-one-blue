@@ -11,45 +11,40 @@ import { Button } from '../Button';
 import { FlagSuccess } from '../FlagSuccess';
 import { FlagError } from '../FlagError';
 
-export const Form = ({ url, buttonText, input = false, title }) => {
+export const Form = ({ url, buttonText, title }) => {
   const [user, setUser] = useState({
     name: '',
-    userName: '',
     password: '',
   });
   const [status, setStatus] = useState({
-    type: null,
-    message: null,
+    type: '',
+    message: '',
   });
 
-  const inputNameComplete = useRef();
   const inputName = useRef();
   const inputPassword = useRef();
-
   const [result, exists] = useFetch(
     url,
-    !!user.name && user.userName,
-    !!user.password && user.password,
+    user.name != '' && user.name,
+    user.password != '' && user.password,
   );
 
   const handleRegister = async () => {
+    setUser({
+      name: inputName.current.value,
+      password: inputPassword.current.value,
+    });
     if (!(await validate())) return;
 
-    const saveDataForm = true;
-
-    if (saveDataForm) {
+    if (user.name !== '' || user.password !== '') {
       setStatus({
         type: 'success',
         message: 'Usuário cadastrado com sucesso!',
       });
-      setUser({
-        userName: inputName.current.value,
-        password: inputPassword.current.value,
-      });
-    } else {
+    } else if (exists) {
       setStatus({
-        type: 'error',
-        message: 'Erro: Usuário não cadastrado com sucesso!',
+        type: 'exists',
+        message: 'Em uso',
       });
     }
   };
@@ -57,9 +52,6 @@ export const Form = ({ url, buttonText, input = false, title }) => {
   const validate = async () => {
     let schema = yup.object().shape({
       name: yup
-        .string('Necessário preencher o campo Nome')
-        .required('Necessário preencher o campo Nome'),
-      userName: yup
         .string('Necessário preencher o campo de Usuário')
         .required('Necessário preencher o campo de Usuário'),
       password: yup
@@ -80,22 +72,18 @@ export const Form = ({ url, buttonText, input = false, title }) => {
   };
 
   console.log(result);
+  console.log(user);
   console.log(status);
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
       <h2>{title}</h2>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
+      {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}
-      {input && (
-        <InputName
-          inputName={inputNameComplete}
-          name="name"
-          text="Digite seu nome completo"
-        />
-      )}
+
       <InputName
-        name="userName"
+        name="name"
         inputName={inputName}
         text="Digite seu nome de usuário"
       />
@@ -113,6 +101,5 @@ export const Form = ({ url, buttonText, input = false, title }) => {
 Form.propTypes = {
   url: P.string.isRequired,
   buttonText: P.string.isRequired,
-  input: P.bool,
   title: P.string,
 };

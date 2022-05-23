@@ -24,7 +24,7 @@ export const useFetch = (url, userName, userPassword) => {
         throw Error('Erro');
       }
     };
-    if (!!userName && !!userPassword) fetchData();
+    if (userName != '' && userPassword != '') fetchData();
 
     return () => setExists(false);
   }, [url, userName, userPassword]);

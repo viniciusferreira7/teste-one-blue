@@ -77,7 +77,7 @@ export const Form = ({ url, buttonText, title }) => {
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
-      <h2>{title}</h2>
+      <h1>{title}</h1>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}

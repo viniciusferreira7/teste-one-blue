@@ -1,5 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.form`
-${() => css``}
+ margin-bottom: 3.2rem;
+
+>  h1 {
+    margin: 4rem 0;
+    color: #fff;
+    font-size: 2.4rem;
+  }
 `;

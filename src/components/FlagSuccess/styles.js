@@ -1,5 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.p`
-${() => css``}
+margin: 4rem 0;
+    color: #fff;
+    font-size: 2.4rem;
 `;

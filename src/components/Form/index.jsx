@@ -1,9 +1,9 @@
 import P from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 
 import * as Styled from './styles';
-import { useFetch } from './useFetch';
+// import { useFetch } from './useFetch';
 
 import { InputName } from '../InputName';
 import { InputPassword } from '../InputPassword';
@@ -21,27 +21,75 @@ export const Form = ({ url, buttonText, title }) => {
     message: '',
   });
 
+  const [send, setSend] = useState(false);
+  const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({ name: user.name, password: user.password }),
+      };
+      try {
+        const response = await fetch(url, options);
+        const jsonResult = await response.json();
+
+        setResult(jsonResult);
+      } catch (e) {
+        throw Error('Erro');
+      }
+    };
+
+    if (send) fetchData();
+
+    return () => setSend(false);
+  }, [user, send, url]);
   const inputName = useRef();
   const inputPassword = useRef();
-  const [result, exists] = useFetch(
-    url,
-    user.name != '' && user.name,
-    user.password != '' && user.password,
-  );
 
-  const handleRegister = async () => {
+  console.log(send);
+  console.log(result);
+
+  const handleRegister = () => {
     setUser({
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
-    if (!(await validate())) return;
 
-    if (user.name !== '' || user.password !== '') {
+    const validate = () => {
+      let schema = yup.object().shape({
+        name: yup
+          .string('Necessário preencher o campo de Usuário')
+          .required('Necessário preencher o campo de Usuário'),
+        password: yup
+          .string('Necessário preencher o campo de Senha')
+          .required('Necessário preencher o campo de Senha'),
+      });
+
+      try {
+        schema.validate(user);
+        setSend(true);
+        return true;
+      } catch (err) {
+        setStatus({
+          type: 'error',
+          message: err.errors,
+        });
+        setSend(false);
+        return false;
+      }
+    };
+
+    if (!validate()) return;
+
+    if (result.ok) {
       setStatus({
         type: 'success',
         message: 'Usuário cadastrado com sucesso!',
       });
-    } else if (exists) {
+      setSend(user);
+    } else {
       setStatus({
         type: 'exists',
         message: 'Em uso',
@@ -49,30 +97,8 @@ export const Form = ({ url, buttonText, title }) => {
     }
   };
 
-  const validate = async () => {
-    let schema = yup.object().shape({
-      name: yup
-        .string('Necessário preencher o campo de Usuário')
-        .required('Necessário preencher o campo de Usuário'),
-      password: yup
-        .string('Necessário preencher o campo de Senha')
-        .required('Necessário preencher o campo de Senha'),
-    });
-
-    try {
-      await schema.validate(user);
-      return true;
-    } catch (err) {
-      setStatus({
-        type: 'error',
-        message: err.errors,
-      });
-      return false;
-    }
-  };
-
-  console.log(result);
   console.log(user);
+  console.log(send);
   console.log(status);
 
   return (
@@ -93,7 +119,6 @@ export const Form = ({ url, buttonText, title }) => {
         text="Digite sua senha"
       />
       <Button handleRegister={() => handleRegister()}>{buttonText}</Button>
-      {exists && <p>Já está em uso</p>}
     </Styled.Container>
   );
 };

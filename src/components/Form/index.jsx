@@ -11,7 +11,7 @@ import { Button } from '../Button';
 import { FlagSuccess } from '../FlagSuccess';
 import { FlagError } from '../FlagError';
 
-export const Form = ({ url, buttonText, title }) => {
+export const Form = ({ buttonText, title }) => {
   const [user, setUser] = useState({
     name: '',
     password: '',
@@ -21,43 +21,10 @@ export const Form = ({ url, buttonText, title }) => {
     message: '',
   });
 
-  const [send, setSend] = useState(false);
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const options = {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify({ name: user.name, password: user.password }),
-      };
-      try {
-        const response = await fetch(url, options);
-        const jsonResult = await response.json();
-
-        setResult(jsonResult);
-      } catch (e) {
-        throw Error('Erro');
-      }
-    };
-
-    if (send) fetchData();
-
-    return () => setSend(false);
-  }, [user, send, url]);
-  const inputName = useRef();
-  const inputPassword = useRef();
-
-  console.log(send);
-  console.log(result);
-
-  const handleRegister = () => {
-    setUser({
-      name: inputName.current.value,
-      password: inputPassword.current.value,
-    });
-
-    const validate = () => {
+    const validate = async (user) => {
       let schema = yup.object().shape({
         name: yup
           .string('Necessário preencher o campo de Usuário')
@@ -68,38 +35,70 @@ export const Form = ({ url, buttonText, title }) => {
       });
 
       try {
-        schema.validate(user);
-        setSend(true);
+        await schema.validate(user);
+
         return true;
       } catch (err) {
         setStatus({
           type: 'error',
           message: err.errors,
         });
-        setSend(false);
         return false;
       }
     };
 
-    if (!validate()) return;
+    const fetchData = async () => {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({ name: user.name, password: user.password }),
+      };
+      try {
+        const response = await fetch(
+          'http://localhost:4000/user/cadaster',
+          options,
+        );
+        const jsonResult = await response.json();
+
+        setResult(jsonResult);
+      } catch (e) {
+        throw Error('Erro');
+      }
+    };
+
+    if (validate(user)) fetchData();
+  }, [user]);
+
+  const inputName = useRef();
+  const inputPassword = useRef();
+
+  const handleRegister = () => {
+    setUser({
+      name: inputName.current.value,
+      password: inputPassword.current.value,
+    });
 
     if (result.ok) {
       setStatus({
         type: 'success',
         message: 'Usuário cadastrado com sucesso!',
       });
-      setSend(user);
-    } else {
+    } else if (result.why === 'User already exists') {
       setStatus({
         type: 'exists',
-        message: 'Em uso',
+        message: 'O usuário já existe!',
+      });
+    } else if (result.why === 'Not found data!') {
+      setStatus({
+        type: 'exists',
+        message: 'Campo vazio!',
       });
     }
   };
 
-  console.log(user);
-  console.log(send);
-  console.log(status);
+  console.log(result, 'o');
+  console.log(user, 'user');
+  console.log(status, 'sta ');
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
@@ -124,7 +123,6 @@ export const Form = ({ url, buttonText, title }) => {
 };
 
 Form.propTypes = {
-  url: P.string.isRequired,
   buttonText: P.string.isRequired,
   title: P.string,
 };

@@ -5,7 +5,7 @@ display: block;
 margin: 3rem auto;
 margin-bottom: 1rem;
 padding: 1.6rem 3rem;
-font-size: 1.6rem;
+font-size: 1.8rem;
 border: none;
 border-radius:0.6rem;
 cursor: pointer;

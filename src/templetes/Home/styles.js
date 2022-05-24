@@ -22,7 +22,7 @@ padding-bottom: 2.5rem;
     border-radius: 0.6rem;
     border-color:rgba(93, 12, 255, 1);
     background-color: transparent;
-    font-size:1.8rem;
+    font-size:1.4rem;
   }
 
   button:active{

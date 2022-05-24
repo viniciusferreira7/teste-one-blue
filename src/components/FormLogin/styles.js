@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.form`
- margin-bottom: 3.2rem;
+ margin-bottom: 2rem;
 
 >  h1 {
     margin: 4rem 0;

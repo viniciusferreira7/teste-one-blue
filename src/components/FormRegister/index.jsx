@@ -84,7 +84,7 @@ export const FormRegister = () => {
         });
       }
     }
-  }, [result]);
+  }, [result, user]);
 
   const inputName = useRef();
   const inputPassword = useRef();
@@ -96,13 +96,9 @@ export const FormRegister = () => {
     });
   };
 
-  console.log(result, 'o');
-  console.log(user, 'user');
-  console.log(status, 'sta ');
-
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
-      <h1>Cadastrar Usuário</h1>
+      <h1>Cadastre-se</h1>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import * as yup from 'yup';
 
 import * as Styled from './styles';
 
@@ -19,9 +20,32 @@ export const FormLogin = () => {
   });
 
   const [result, setResult] = useState(null);
-  const [api, setApi] = useState(false);
 
   useEffect(() => {
+    const validate = async (user) => {
+      let schema = yup.object().shape({
+        name: yup
+          .string('Necessário preencher o campo de Usuário')
+          .number('Necessário que tenha pelos um numero')
+          .required('Necessário preencher o campo de Usuário'),
+        password: yup
+          .string('Necessário preencher o campo de Senha')
+          .number('Necessário que tenha pelos um numero')
+          .required('Necessário preencher o campo de Senha'),
+      });
+
+      try {
+        await schema.validate(user);
+
+        return true;
+      } catch (err) {
+        setStatus({
+          type: 'error',
+          message: err.errors,
+        });
+        return false;
+      }
+    };
     const fetchData = async () => {
       const options = {
         method: 'POST',
@@ -34,30 +58,34 @@ export const FormLogin = () => {
 
         setResult(jsonResult);
       } catch (e) {
-        throw Error('Erro');
+        throw Error('Deu ruim!');
       }
     };
 
-    if (api) fetchData();
-
-    return () => setApi(false);
-  }, [user, api]);
+    if (validate(user)) fetchData();
+  }, [user]);
 
   useEffect(() => {
     if (result !== null) {
       if (result.ok) {
         setStatus({
           type: 'success',
-          message: `Bem-vindo ${user.name}!`,
+          message: `Seja muito bem-vindo(a) ${user.name}!`,
         });
-      } else if (result.why === 'Not found data!') {
+      } else if (
+        result.why === 'Not found data!' &&
+        user.name !== '' &&
+        user.password !== ''
+      ) {
         setStatus({
-          type: 'error',
+          type: 'not exists',
           message: 'O usuário não existe',
         });
       }
     }
-  }, [result]);
+  }, [result, user]);
+
+  console.log(result);
 
   const inputName = useRef();
   const inputPassword = useRef();
@@ -67,17 +95,14 @@ export const FormLogin = () => {
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
-
-    setApi(true);
   };
-
-  console.log(result);
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
-      <h1>Login</h1>
+      <h1>Entrar</h1>
 
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
+      {status.type === 'not exists' && <FlagError>{status.message}</FlagError>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}
 
       <InputName

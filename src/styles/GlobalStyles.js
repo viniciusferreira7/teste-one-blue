@@ -30,7 +30,4 @@ input{
   background: transparent;
   color: #fff;
 }
-
-input::placeholder {
-    color: #e2e2e2;
-  }`;
+`;

@@ -6,6 +6,6 @@ export const Container = styled.form`
 >  h1 {
     margin: 4rem 0;
     color: #fff;
-    font-size: 2.4rem;
+    font-size: 3rem;
   }
 `;

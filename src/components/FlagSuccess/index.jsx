@@ -7,5 +7,5 @@ export const FlagSuccess = ({ children }) => {
 };
 
 FlagSuccess.propTypes = {
-  children: P.string,
+  children: P.oneOfType([P.string, P.array]),
 };

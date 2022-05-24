@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { Form } from '.';
+import { FormRegister } from '.';
 
-describe('<Form/>', () => {
+describe('<FormRegister/>', () => {
   it('should render with default values', () => {
-    render(<Form>Texto</Form>);
+    render(<FormRegister>Texto</FormRegister>);
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 });

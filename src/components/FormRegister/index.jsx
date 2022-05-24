@@ -1,4 +1,3 @@
-import P from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 
@@ -11,7 +10,7 @@ import { Button } from '../Button';
 import { FlagSuccess } from '../FlagSuccess';
 import { FlagError } from '../FlagError';
 
-export const Form = ({ buttonText, title }) => {
+export const FormRegister = () => {
   const [user, setUser] = useState({
     name: '',
     password: '',
@@ -28,9 +27,11 @@ export const Form = ({ buttonText, title }) => {
       let schema = yup.object().shape({
         name: yup
           .string('Necessário preencher o campo de Usuário')
+          .min(6, 'O nome de usuário deve ter no mínimo 4 caracteres')
           .required('Necessário preencher o campo de Usuário'),
         password: yup
           .string('Necessário preencher o campo de Senha')
+          .min(6, 'A senha deve ter no mínimo 6 caracteres')
           .required('Necessário preencher o campo de Senha'),
       });
 
@@ -69,6 +70,22 @@ export const Form = ({ buttonText, title }) => {
     if (validate(user)) fetchData();
   }, [user]);
 
+  useEffect(() => {
+    if (result !== null) {
+      if (result.ok === true) {
+        setStatus({
+          type: 'success',
+          message: 'Usuário cadastrado com sucesso!',
+        });
+      } else if (result.why === 'User already exists') {
+        setStatus({
+          type: 'exists',
+          message: 'O usuário já existe!',
+        });
+      }
+    }
+  }, [result]);
+
   const inputName = useRef();
   const inputPassword = useRef();
 
@@ -77,23 +94,6 @@ export const Form = ({ buttonText, title }) => {
       name: inputName.current.value,
       password: inputPassword.current.value,
     });
-
-    if (result.ok) {
-      setStatus({
-        type: 'success',
-        message: 'Usuário cadastrado com sucesso!',
-      });
-    } else if (result.why === 'User already exists') {
-      setStatus({
-        type: 'exists',
-        message: 'O usuário já existe!',
-      });
-    } else if (result.why === 'Not found data!') {
-      setStatus({
-        type: 'exists',
-        message: 'Campo vazio!',
-      });
-    }
   };
 
   console.log(result, 'o');
@@ -102,7 +102,7 @@ export const Form = ({ buttonText, title }) => {
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
-      <h1>{title}</h1>
+      <h1>Cadastrar Usuário</h1>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
       {status.type === 'error' && <FlagError>{status.message}</FlagError>}
@@ -117,12 +117,7 @@ export const Form = ({ buttonText, title }) => {
         inputPassword={inputPassword}
         text="Digite sua senha"
       />
-      <Button handleRegister={() => handleRegister()}>{buttonText}</Button>
+      <Button handleRegister={() => handleRegister()}>Cadastrar</Button>
     </Styled.Container>
   );
-};
-
-Form.propTypes = {
-  buttonText: P.string.isRequired,
-  title: P.string,
 };

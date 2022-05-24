@@ -1,13 +1,14 @@
 import React from 'react';
 import * as Styled from './styles';
 
-import { Form } from '../../components/Form';
+import { FormLogin } from '../../components/FormLogin';
+import { FormRegister } from '../../components/FormRegister';
 
 export const Home = () => {
   return (
     <Styled.Container>
-      <Form buttonText={'Cadastrar'} title={'Cadastrar Usuário'} />
-      <Form buttonText={'Entrar'} />
+      <FormRegister />
+      <FormLogin />
     </Styled.Container>
   );
 };

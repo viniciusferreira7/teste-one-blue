@@ -7,5 +7,5 @@ export const FlagError = ({ children }) => {
 };
 
 FlagError.propTypes = {
-  children: P.array,
+  children: P.oneOfType([P.string, P.array]),
 };

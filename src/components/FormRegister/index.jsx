@@ -72,7 +72,7 @@ export const FormRegister = () => {
 
   useEffect(() => {
     if (result !== null) {
-      if (result.ok === true) {
+      if (result.ok) {
         setStatus({
           type: 'success',
           message: 'Usuário cadastrado com sucesso!',

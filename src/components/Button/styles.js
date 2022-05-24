@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.button`
 display: block;
 margin: 3rem auto;
-padding: 1.6rem;
+margin-bottom: 1rem;
+padding: 1.6rem 3rem;
+font-size: 1.6rem;
 border: none;
 border-radius:0.6rem;
 cursor: pointer;
@@ -17,7 +19,9 @@ color: #fff;
 text-transform: capitalize;
 
 
-&:active{
-  background-color: red;
+ &:active{
+  background: transparent ;
+  border: 0.3rem solid rgba(93, 12, 255, 1);
+  color: rgba(93, 12, 255, 1);
 }
 `;

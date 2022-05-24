@@ -22,12 +22,13 @@ body {
   }
 
 input{
-  padding: 1.4rem 3.2rem 1.4rem 1.6rem;
+  padding: 2rem 3.2rem 2rem 1.6rem;
   border-radius: 0.5rem;
   border: 0.2rem solid #5d0cff;
   outline: none;
-  width: 320px;
+  width: 40.0rem;
   background: transparent;
   color: #fff;
+  font-size: 1.6rem;
 }
 `;

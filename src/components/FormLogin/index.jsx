@@ -5,11 +5,17 @@ import * as Styled from './styles';
 import { InputName } from '../InputName';
 import { InputPassword } from '../InputPassword';
 import { Button } from '../Button';
+import { FlagSuccess } from '../FlagSuccess';
+import { FlagError } from '../FlagError';
 
 export const FormLogin = () => {
   const [user, setUser] = useState({
     name: '',
     password: '',
+  });
+  const [status, setStatus] = useState({
+    type: '',
+    message: '',
   });
 
   const [result, setResult] = useState(null);
@@ -37,6 +43,22 @@ export const FormLogin = () => {
     return () => setApi(false);
   }, [user, api]);
 
+  useEffect(() => {
+    if (result !== null) {
+      if (result.ok) {
+        setStatus({
+          type: 'success',
+          message: `Bem-vindo ${user.name}!`,
+        });
+      } else if (result.why === 'Not found data!') {
+        setStatus({
+          type: 'error',
+          message: 'O usuário não existe',
+        });
+      }
+    }
+  }, [result]);
+
   const inputName = useRef();
   const inputPassword = useRef();
 
@@ -54,6 +76,9 @@ export const FormLogin = () => {
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>
       <h1>Login</h1>
+
+      {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
+      {status.type === 'error' && <FlagError>{status.message}</FlagError>}
 
       <InputName
         name="name"

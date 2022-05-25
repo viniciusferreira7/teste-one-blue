@@ -17,11 +17,12 @@ background: linear-gradient(
 );
 color: #fff;
 text-transform: capitalize;
+transition: all 300ms ease-in-out;
 
-
- &:active{
+ &:hover{
   background: transparent ;
-  border: 0.3rem solid rgba(93, 12, 255, 1);
+  padding: 1.6rem 3rem;
+  border: 0.1rem solid rgba(93, 12, 255, 1);
   color: rgba(93, 12, 255, 1);
 }
 `;

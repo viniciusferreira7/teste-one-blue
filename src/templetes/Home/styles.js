@@ -16,21 +16,22 @@ border-radius: 1.0rem;
 padding:0 2% 2.5rem 2%;
 
 > button{
-    width: 8.0rem;
+    min-width: 8.0rem;
     cursor: pointer;
     margin:0 auto;
     padding: 0.6rem 0.2rem;
-    color: #fff;
+    color: rgba(93, 12, 255, 1);
     border:0.2rem solid  transparent;
     border-radius: 0.6rem;
     border-color:rgba(93, 12, 255, 1);
     background-color: transparent;
     font-size:1.4rem;
+    transition: all 300ms ease-in-out;
   }
 
-  button:active{
+> button:hover{
   background: rgba(93, 12, 255, 1) ;
-  border:none;
   color: #fff;
+  padding: 0.8rem 0.4rem;
 }
 `;

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home/> should match snapshot 1`] = `
+<div
+  class="sc-bczRLJ fgVWkE"
+>
+  <form
+    class="sc-iBkjds jnGyuj"
+  >
+    <h1>
+      Cadastre-se
+    </h1>
+    <p
+      class="sc-gKXOVf hjAfTq"
+    >
+      Necessário preencher o campo de senha
+    </p>
+    <input
+      class="sc-dkzDqf iXafZv"
+      name="name"
+      placeholder="Digite seu nome de usuário"
+      required=""
+      type="text"
+    />
+    <input
+      class="sc-hKMtZM cLivwc"
+      name="password"
+      placeholder="Digite sua senha"
+      required=""
+      type="password"
+    />
+    <button
+      class="sc-eCYdqJ fSkBnH"
+    >
+      Cadastrar
+    </button>
+  </form>
+  <button>
+    Entrar
+  </button>
+</div>
+`;

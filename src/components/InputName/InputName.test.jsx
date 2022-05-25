@@ -26,4 +26,9 @@ describe('<InputName/>', () => {
       'font-size: 1.6rem',
     );
   });
+
+  it('should match snapshot', () => {
+    render(<InputName name="name" text="Usuário" />);
+    expect(screen.getByPlaceholderText('Usuário')).toMatchSnapshot();
+  });
 });

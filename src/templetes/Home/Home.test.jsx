@@ -8,4 +8,12 @@ describe('<Home/>', () => {
     expect(document.querySelector('form')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Entrar' })).toBeInTheDocument();
   });
+
+  it('should match snapshot', async () => {
+    await act(async () => render(<Home />));
+    expect(document.querySelector('form')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Entrar' }).parentElement,
+    ).toMatchSnapshot();
+  });
 });

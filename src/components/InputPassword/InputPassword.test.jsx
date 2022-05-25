@@ -25,4 +25,9 @@ describe('<InputPassword/>', () => {
       'border: 0.2rem solid #5d0cff',
     );
   });
+
+  it('should match snapshot', () => {
+    render(<InputPassword name="password" text="Senha" />);
+    expect(screen.getByPlaceholderText('Senha')).toMatchSnapshot();
+  });
 });

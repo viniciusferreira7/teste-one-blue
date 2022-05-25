@@ -12,4 +12,9 @@ describe('<FlagSuccess/>', () => {
       'color:rgba(93, 12, 255, 1)',
     );
   });
+
+  it('should match snapshot', () => {
+    render(<FlagSuccess>Sucesso</FlagSuccess>);
+    expect(screen.getByText('Sucesso')).toMatchSnapshot();
+  });
 });

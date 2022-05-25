@@ -16,7 +16,14 @@ describe('<InputName/>', () => {
   });
 
   it('should have attribute required', () => {
-    render(<InputName name="name" text="Usuário" />);
+    render(<InputName text="Usuário" />);
     expect(screen.getByPlaceholderText('Usuário')).toHaveAttribute('required');
+  });
+
+  it('should correct style', () => {
+    render(<InputName name="name" text="Usuário" />);
+    expect(screen.getByPlaceholderText('Usuário')).toHaveStyle(
+      'font-size: 1.6rem',
+    );
   });
 });

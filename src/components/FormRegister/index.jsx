@@ -23,7 +23,6 @@ export const FormRegister = () => {
 
   const inputName = useRef();
   const inputPassword = useRef();
-  const inputPasswordConfirmation = useRef();
 
   useEffect(() => {
     const validate = async (user) => {
@@ -42,13 +41,6 @@ export const FormRegister = () => {
             /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'A senha deve conter pelo menos 6 caracteres, uma maiúscula, um número e um caractere especial',
           ),
-        passwordConfirmation: yup
-          .string()
-          .required()
-          .matches(
-            /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-          )
-          .oneOf([yup.ref('password'), null], 'Passwords must match'),
       });
 
       try {
@@ -110,7 +102,7 @@ export const FormRegister = () => {
   };
 
   return (
-    <Styled.Container onClick={(e) => e.preventDefault()}>
+    <Styled.Container onSubmit={(e) => e.preventDefault()}>
       <h1>Cadastre-se</h1>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
@@ -125,11 +117,6 @@ export const FormRegister = () => {
         name="password"
         inputPassword={inputPassword}
         text="Digite sua senha"
-      />
-      <InputPassword
-        name="passwordConfirmation"
-        inputPassword={inputPasswordConfirmation}
-        text="Confirme sua senha"
       />
       <Button handleRegister={() => handleRegister()}>Cadastrar</Button>
     </Styled.Container>

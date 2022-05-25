@@ -10,4 +10,9 @@ describe('<FlagError/>', () => {
     render(<FlagError>Erro</FlagError>);
     expect(screen.getByText('Erro')).toHaveStyle('color:#d42686');
   });
+
+  it('should match snapshot', () => {
+    render(<FlagError>Erro</FlagError>);
+    expect(screen.getByText('Erro')).toMatchSnapshot();
+  });
 });

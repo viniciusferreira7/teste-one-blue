@@ -21,6 +21,9 @@ export const FormLogin = () => {
 
   const [result, setResult] = useState(null);
 
+  const inputName = useRef();
+  const inputPassword = useRef();
+
   useEffect(() => {
     const validate = async (user) => {
       let schema = yup.object().shape({
@@ -80,9 +83,6 @@ export const FormLogin = () => {
       }
     }
   }, [result, user]);
-
-  const inputName = useRef();
-  const inputPassword = useRef();
 
   const handleRegister = () => {
     setUser({

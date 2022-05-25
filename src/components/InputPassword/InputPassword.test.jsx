@@ -19,4 +19,10 @@ describe('<InputPassword/>', () => {
     render(<InputPassword name="password" text="Senha" />);
     expect(screen.getByPlaceholderText('Senha')).toHaveAttribute('required');
   });
+  it('should correct style', () => {
+    render(<InputPassword name="password" text="Senha" />);
+    expect(screen.getByPlaceholderText('Senha')).toHaveStyle(
+      'border: 0.2rem solid #5d0cff',
+    );
+  });
 });

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormLogin/> should match snapshot 1`] = `
+<form
+  class="sc-bczRLJ bFCfUJ"
+>
+  <h1>
+    Entrar
+  </h1>
+  <p
+    class="sc-jSMfEi jDxcCH"
+  >
+    Necessário preencher o campo de Senha
+  </p>
+  <input
+    class="sc-gsnTZi hukAyA"
+    name="name"
+    placeholder="Digite seu nome de usuário"
+    required=""
+    type="text"
+  />
+  <input
+    class="sc-dkzDqf iXafZv"
+    name="password"
+    placeholder="Digite sua senha"
+    required=""
+    type="password"
+  />
+  <button
+    class="sc-hKMtZM gnuIkq"
+  >
+    Entrar
+  </button>
+</form>
+`;

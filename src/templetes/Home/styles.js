@@ -26,12 +26,13 @@ padding:0 2% 2.5rem 2%;
     border-color:rgba(93, 12, 255, 1);
     background-color: transparent;
     font-size:1.4rem;
-    transition: all 300ms ease-in-out;
+    transition: all 500ms ease-in-out;
   }
 
 > button:hover{
   background: rgba(93, 12, 255, 1) ;
   color: #fff;
-  padding: 0.8rem 0.4rem;
+  padding: 1rem 0.8rem;
+  font-size: 1.6rem;
 }
 `;

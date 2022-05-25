@@ -11,13 +11,13 @@ export const Home = () => {
       {!login && (
         <>
           <FormRegister />
-          <button onClick={() => setLogin(true)}>Entrar</button>
+          <button onClick={() => setLogin((s) => !s)}>Entrar</button>
         </>
       )}
       {login && (
         <>
           <FormLogin />
-          <button onClick={() => setLogin(false)}>Cadastrar</button>
+          <button onClick={() => setLogin((s) => !s)}>Cadastrar</button>
         </>
       )}
     </Styled.Container>

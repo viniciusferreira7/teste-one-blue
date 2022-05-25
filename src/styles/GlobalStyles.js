@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 html{
+  height: 100%;
   font-size: 62.5%;
 }
 
@@ -19,15 +20,17 @@ body {
       rgba(48, 16, 255, 1) 0%,
       rgba(100, 115, 255, 1) 100%
     );
-    padding: 0 2%;
+    padding: 0 1%;
   }
 
 input{
+  display: block;
+  margin: 0 auto;
   padding: 2rem 3.2rem 2rem 1.6rem;
   border-radius: 0.5rem;
   border: 0.2rem solid #5d0cff;
   outline: none;
-  width: 40.0rem;
+  width: 70%;
   background: transparent;
   color: #fff;
   font-size: 1.6rem;

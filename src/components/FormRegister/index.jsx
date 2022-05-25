@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 
 import * as Styled from './styles';
-// import { useFetch } from './useFetch';
 
 import { InputName } from '../InputName';
 import { InputPassword } from '../InputPassword';
@@ -102,8 +101,6 @@ export const FormRegister = () => {
       password: inputPassword.current.value,
     });
   };
-
-  console.log(result);
 
   return (
     <Styled.Container onClick={(e) => e.preventDefault()}>

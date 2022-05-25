@@ -24,11 +24,9 @@ export const FormLogin = () => {
   useEffect(() => {
     const validate = async (user) => {
       let schema = yup.object().shape({
-        name: yup
-          .string('Necessário preencher o campo de Usuário')
-          .required('Necessário preencher o campo de Usuário'),
+        name: yup.string().required('Necessário preencher o campo de Usuário'),
         password: yup
-          .string('Necessário preencher o campo de Senha')
+          .string()
           .required('Necessário preencher o campo de Senha'),
       });
 
@@ -82,8 +80,6 @@ export const FormLogin = () => {
       }
     }
   }, [result, user]);
-
-  console.log(result);
 
   const inputName = useRef();
   const inputPassword = useRef();

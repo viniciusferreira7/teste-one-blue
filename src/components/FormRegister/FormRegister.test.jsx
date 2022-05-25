@@ -19,8 +19,4 @@ describe('<FormRegister/>', () => {
       screen.getByRole('button', { name: 'Cadastrar' }),
     ).toBeInTheDocument();
   });
-
-  it('should render flag message', async () => {
-    await act(async () => render(<FormRegister />));
-  });
 });

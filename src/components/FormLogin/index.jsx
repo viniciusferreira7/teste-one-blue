@@ -26,11 +26,9 @@ export const FormLogin = () => {
       let schema = yup.object().shape({
         name: yup
           .string('Necessário preencher o campo de Usuário')
-          .number('Necessário que tenha pelos um numero')
           .required('Necessário preencher o campo de Usuário'),
         password: yup
           .string('Necessário preencher o campo de Senha')
-          .number('Necessário que tenha pelos um numero')
           .required('Necessário preencher o campo de Senha'),
       });
 
@@ -115,7 +113,7 @@ export const FormLogin = () => {
         inputPassword={inputPassword}
         text="Digite sua senha"
       />
-      <Button handleRegister={() => handleRegister()}>Login</Button>
+      <Button handleRegister={() => handleRegister()}>Entrar</Button>
     </Styled.Container>
   );
 };

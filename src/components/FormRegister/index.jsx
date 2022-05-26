@@ -33,16 +33,14 @@ export const FormRegister = () => {
           .matches(
             /^.*(?=.{4,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'Dica: Campo de usuário pode conter 4 caracteres, sendo uma maiúsculo e uma minúscula',
-          )
-          .required(),
+          ),
         password: yup
           .string()
           .required('Necessário preencher o campo de senha')
           .matches(
             /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'Dica: A senha pode conter pelo menos 6 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial',
-          )
-          .required(),
+          ),
       });
 
       try {
@@ -81,7 +79,7 @@ export const FormRegister = () => {
 
   useEffect(() => {
     if (result !== null) {
-      if (result.ok) {
+      if (result.ok && user.name.length >= 4 && user.password.length >= 6) {
         setStatus({
           type: 'success',
           message: 'Usuário cadastrado com sucesso!',

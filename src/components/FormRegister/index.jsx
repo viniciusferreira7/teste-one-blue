@@ -77,12 +77,6 @@ export const FormRegister = () => {
     if (validate(user)) fetchData();
   }, [user]);
 
-  console.log(
-    user.name.match(
-      /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-    ),
-  );
-
   useEffect(() => {
     if (result !== null) {
       if (result.ok) {

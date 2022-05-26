@@ -32,20 +32,19 @@ export const FormRegister = () => {
           .required('Necessário preencher o campo de Usuário')
           .matches(
             /^.*(?=.{4,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            'Campo de usuário deve conter 4 caracteres, sendo uma maiúsculo e um minúsculo',
+            'Dica: Campo de usuário pode conter 4 caracteres, sendo uma maiúsculo e uma minúscula',
           ),
         password: yup
           .string()
           .required('Necessário preencher o campo de senha')
           .matches(
             /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-            'A senha deve conter pelo menos 6 caracteres, uma maiúscula, um número e um caractere especial',
+            'Dica: A senha pode conter pelo menos 6 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial',
           ),
       });
 
       try {
         await schema.validate(user);
-
         return true;
       } catch (err) {
         setStatus({
@@ -78,9 +77,15 @@ export const FormRegister = () => {
     if (validate(user)) fetchData();
   }, [user]);
 
+  console.log(
+    user.name.match(
+      /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+    ),
+  );
+
   useEffect(() => {
     if (result !== null) {
-      if (result.ok && user.name.length >= 4 && user.password.length >= 6) {
+      if (result.ok) {
         setStatus({
           type: 'success',
           message: 'Usuário cadastrado com sucesso!',

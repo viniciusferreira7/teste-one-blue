@@ -33,14 +33,16 @@ export const FormRegister = () => {
           .matches(
             /^.*(?=.{4,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'Dica: Campo de usuário pode conter 4 caracteres, sendo uma maiúsculo e uma minúscula',
-          ),
+          )
+          .required(),
         password: yup
           .string()
           .required('Necessário preencher o campo de senha')
           .matches(
             /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'Dica: A senha pode conter pelo menos 6 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial',
-          ),
+          )
+          .required(),
       });
 
       try {
@@ -101,7 +103,7 @@ export const FormRegister = () => {
   };
 
   return (
-    <Styled.Container onSubmit={(e) => e.preventDefault()}>
+    <Styled.Container onClick={(e) => e.preventDefault()}>
       <h1>Cadastre-se</h1>
       {status.type === 'success' && <FlagSuccess>{status.message}</FlagSuccess>}
       {status.type === 'exists' && <FlagError>{status.message}</FlagError>}
